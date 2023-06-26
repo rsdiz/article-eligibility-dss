@@ -21,6 +21,10 @@ class Criteria extends Model
         'code', 'name', 'type', 'weight', 'has_option'
     ];
 
+    public function subCriterias() {
+        return $this->hasMany(SubCriteria::class);
+    }
+
     public function optionDesc(): Attribute
     {
         $has_option = $this->has_option;

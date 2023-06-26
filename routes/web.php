@@ -8,6 +8,7 @@ use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Eligibility\CriteriaController;
 use App\Http\Controllers\Eligibility\EligibilityController;
+use App\Http\Controllers\Eligibility\SubCriteriaController;
 use App\Http\Controllers\Saved\SavedController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -34,6 +35,12 @@ Route::post('/eligibility/criterias', [CriteriaController::class, 'storeCriteria
 Route::get('/eligibility/criteria/{id}', [CriteriaController::class, 'showCriteria'])->name('eligibility.criterias.show');
 Route::patch('/eligibility/criteria/{id}', [CriteriaController::class, 'editCriteria'])->name('eligibility.criterias.update');
 Route::delete('/eligibility/criteria/{id}', [CriteriaController::class, 'deleteCriteria'])->name('eligibility.criterias.delete');
+
+Route::get('/eligibility/criterias/sub/{id}', [SubCriteriaController::class, 'index'])->name('eligibility.criterias.sub');
+Route::post('/eligibility/criterias/sub/{id}', [SubCriteriaController::class, 'store'])->name('eligibility.criterias.sub.store');
+Route::get('/eligibility/criteria/sub/{id}', [SubCriteriaController::class, 'show'])->name('eligibility.criterias.sub.show');
+Route::patch('/eligibility/criteria/sub/{id}', [SubCriteriaController::class, 'edit'])->name('eligibility.criterias.sub.update');
+Route::delete('/eligibility/criteria/sub/{id}', [SubCriteriaController::class, 'delete'])->name('eligibility.criterias.sub.delete');
 
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::post('/category', [CategoryController::class, 'store'])->name('categoryStore');
