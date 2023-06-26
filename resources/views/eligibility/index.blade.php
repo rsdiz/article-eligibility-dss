@@ -14,7 +14,7 @@
                             velit
                             modi culpa quia, dolore sunt quos temporibus molestiae quae, esse quidem? Pariatur rem quidem
                             debitis ducimus accusamus fugiat quasi!</p>
-                            <a href="#">Lihat</a>
+                        <a href="{{ route('eligibility.criterias') }}">Lihat</a>
                     </div>
                 </div>
             </div>

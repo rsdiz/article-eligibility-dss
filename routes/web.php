@@ -27,6 +27,12 @@ Route::post('/post/edit/{id}', [PostController::class, 'update'])->name('postUpd
 Route::delete('/post/delete/{id}', [PostController::class, 'delete'])->name('postDelete');
 
 Route::get('/eligibility', [EligibilityController::class, 'index'])->name('eligibility');
+Route::get('/eligibility/criterias', [EligibilityController::class, 'criterias'])->name('eligibility.criterias');
+Route::post('/eligibility/criterias', [EligibilityController::class, 'storeCriteria'])->name('eligibility.criterias.store');
+Route::get('/eligibility/criteria/{id}', [EligibilityController::class, 'showCriteria'])->name('eligibility.criterias.show');
+Route::patch('/eligibility/criteria/{id}', [EligibilityController::class, 'editCriteria'])->name('eligibility.criterias.update');
+Route::delete('/eligibility/criteria/{id}', [EligibilityController::class, 'deleteCriteria'])->name('eligibility.criterias.delete');
+
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::post('/category', [CategoryController::class, 'store'])->name('categoryStore');
 Route::get('/category/{id}', [CategoryController::class, 'show'])->name('categoryShow');
