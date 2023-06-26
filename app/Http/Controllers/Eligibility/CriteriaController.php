@@ -11,7 +11,7 @@ use DataTables;
 
 class CriteriaController extends Controller
 {
-    public function criterias(Request $request)
+    public function index(Request $request)
     {
         if ($request->ajax()) {
             $data = Criteria::query()->oldest();
@@ -36,14 +36,14 @@ class CriteriaController extends Controller
         return view('eligibility.criterias');
     }
 
-    public function showCriteria($id)
+    public function show($id)
     {
         $data = Criteria::findOrFail($id);
 
         return $this->res(200, 'Berhasil', $data);
     }
 
-    public function storeCriteria(StoreCriteriaRequest $request)
+    public function store(StoreCriteriaRequest $request)
     {
         try {
             $data = Criteria::create($request->validated());
@@ -54,7 +54,7 @@ class CriteriaController extends Controller
         }
     }
 
-    public function editCriteria($id, UpdateCriteriaRequest $request)
+    public function edit($id, UpdateCriteriaRequest $request)
     {
         try {
             $data = Criteria::findOrFail($id);
@@ -67,7 +67,7 @@ class CriteriaController extends Controller
         }
     }
 
-    public function deleteCriteria($id)
+    public function delete($id)
     {
         try {
             $data = Criteria::findOrFail($id);

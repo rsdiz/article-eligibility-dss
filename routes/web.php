@@ -30,11 +30,11 @@ Route::delete('/post/delete/{id}', [PostController::class, 'delete'])->name('pos
 
 Route::get('/eligibility', [EligibilityController::class, 'index'])->name('eligibility');
 
-Route::get('/eligibility/criterias', [CriteriaController::class, 'criterias'])->name('eligibility.criterias');
-Route::post('/eligibility/criterias', [CriteriaController::class, 'storeCriteria'])->name('eligibility.criterias.store');
-Route::get('/eligibility/criteria/{id}', [CriteriaController::class, 'showCriteria'])->name('eligibility.criterias.show');
-Route::patch('/eligibility/criteria/{id}', [CriteriaController::class, 'editCriteria'])->name('eligibility.criterias.update');
-Route::delete('/eligibility/criteria/{id}', [CriteriaController::class, 'deleteCriteria'])->name('eligibility.criterias.delete');
+Route::get('/eligibility/criterias', [CriteriaController::class, 'index'])->name('eligibility.criterias');
+Route::post('/eligibility/criterias', [CriteriaController::class, 'store'])->name('eligibility.criterias.store');
+Route::get('/eligibility/criteria/{id}', [CriteriaController::class, 'show'])->name('eligibility.criterias.show');
+Route::patch('/eligibility/criteria/{id}', [CriteriaController::class, 'edit'])->name('eligibility.criterias.update');
+Route::delete('/eligibility/criteria/{id}', [CriteriaController::class, 'delete'])->name('eligibility.criterias.delete');
 
 Route::get('/eligibility/criterias/sub/{id}', [SubCriteriaController::class, 'index'])->name('eligibility.criterias.sub');
 Route::post('/eligibility/criterias/sub/{id}', [SubCriteriaController::class, 'store'])->name('eligibility.criterias.sub.store');
