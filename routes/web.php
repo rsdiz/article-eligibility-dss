@@ -6,6 +6,7 @@ use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Eligibility\CriteriaController;
 use App\Http\Controllers\Eligibility\EligibilityController;
 use App\Http\Controllers\Saved\SavedController;
 
@@ -27,11 +28,12 @@ Route::post('/post/edit/{id}', [PostController::class, 'update'])->name('postUpd
 Route::delete('/post/delete/{id}', [PostController::class, 'delete'])->name('postDelete');
 
 Route::get('/eligibility', [EligibilityController::class, 'index'])->name('eligibility');
-Route::get('/eligibility/criterias', [EligibilityController::class, 'criterias'])->name('eligibility.criterias');
-Route::post('/eligibility/criterias', [EligibilityController::class, 'storeCriteria'])->name('eligibility.criterias.store');
-Route::get('/eligibility/criteria/{id}', [EligibilityController::class, 'showCriteria'])->name('eligibility.criterias.show');
-Route::patch('/eligibility/criteria/{id}', [EligibilityController::class, 'editCriteria'])->name('eligibility.criterias.update');
-Route::delete('/eligibility/criteria/{id}', [EligibilityController::class, 'deleteCriteria'])->name('eligibility.criterias.delete');
+
+Route::get('/eligibility/criterias', [CriteriaController::class, 'criterias'])->name('eligibility.criterias');
+Route::post('/eligibility/criterias', [CriteriaController::class, 'storeCriteria'])->name('eligibility.criterias.store');
+Route::get('/eligibility/criteria/{id}', [CriteriaController::class, 'showCriteria'])->name('eligibility.criterias.show');
+Route::patch('/eligibility/criteria/{id}', [CriteriaController::class, 'editCriteria'])->name('eligibility.criterias.update');
+Route::delete('/eligibility/criteria/{id}', [CriteriaController::class, 'deleteCriteria'])->name('eligibility.criterias.delete');
 
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::post('/category', [CategoryController::class, 'store'])->name('categoryStore');
