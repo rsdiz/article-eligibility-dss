@@ -6,6 +6,7 @@ use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Eligibility\EligibilityController;
 use App\Http\Controllers\Saved\SavedController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -25,6 +26,7 @@ Route::get('/post/edit/{id}', [PostController::class, 'edit'])->name('postEdit')
 Route::post('/post/edit/{id}', [PostController::class, 'update'])->name('postUpdate');
 Route::delete('/post/delete/{id}', [PostController::class, 'delete'])->name('postDelete');
 
+Route::get('/eligibility', [EligibilityController::class, 'index'])->name('eligibility');
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::post('/category', [CategoryController::class, 'store'])->name('categoryStore');
 Route::get('/category/{id}', [CategoryController::class, 'show'])->name('categoryShow');

@@ -4,14 +4,14 @@
     <title>Kabarin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/open-iconic-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
-    
+
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.timepicker.css') }}">
 
-    
+
     <link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -40,14 +40,15 @@
 		<nav id="colorlib-main-menu" role="navigation">
 			<ul>
 				<li class="{{ Request::segment(1) === null ? 'colorlib-active' : null }}"><a href="{{ route('home') }}">Home</a></li>
-				
+
 				@guest
 					<li class="{{ Request::segment(1) === 'auth' ? 'colorlib-active' : null }}"><a href="{{ route('auth') }}">Login / Daftar</a></li>
 				@endguest
-				
+
 				@if (!is_null(Auth::user()))
 					@if (Auth::user()->role == 'admin')
 						<li class="{{ Request::segment(1) === 'post' ? 'colorlib-active' : null }}"><a href="{{ route('post') }}">Berita</a></li>
+						<li class="{{ Request::segment(1) === 'eligibility' ? 'colorlib-active' : null }}"><a href="{{ route('eligibility') }}">Sistem Kelayakan</a></li>
 						<li class="{{ Request::segment(1) === 'category' ? 'colorlib-active' : null }}"><a href="{{ route('category') }}">Kategori</a></li>
 					@else
 						<li class="{{ Request::segment(1) === 'saved' ? 'colorlib-active' : null }}"><a href="{{ route('saved') }}">Berita Tersimpan</a></li>
