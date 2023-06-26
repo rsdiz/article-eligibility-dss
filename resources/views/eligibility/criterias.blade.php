@@ -306,11 +306,11 @@
                 $('.error-message ul').empty();
 
                 var form = new FormData(
-                    $('#form-add')[0],
-                    $('#form-add')[1],
-                    $('#form-add')[2],
-                    $('#form-add')[3],
-                    $('#form-add')[4]
+                    $('#form-edit')[0],
+                    $('#form-edit')[1],
+                    $('#form-edit')[2],
+                    $('#form-edit')[3],
+                    $('#form-edit')[4]
                     );
                 form.append('aksi', 'edit');
                 form.append('_method', 'PATCH');
