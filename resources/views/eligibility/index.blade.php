@@ -26,7 +26,7 @@
                             laudantium eveniet quod error minus aliquid harum fugit eius. Repellat dolor unde odio maxime
                             omnis.
                             Tempora ut illo quisquam voluptatem officiis.</p>
-                        <a href="#">Lihat</a>
+                        <a href="{{ route('eligibility.alternatives') }}">Lihat</a>
                     </div>
                 </div>
             </div>

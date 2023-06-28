@@ -18,4 +18,9 @@ class Score extends Model
     protected $fillable = [
         'criteria_id', 'alternative_id', 'value'
     ];
+
+    public function criteria()
+    {
+        return $this->belongsTo(Criteria::class);
+    }
 }

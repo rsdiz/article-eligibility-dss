@@ -18,4 +18,14 @@ class Alternative extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function hasScores()
+    {
+        return (bool) $this->scores()->first();
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Eligibility\AlternativeController;
 use App\Http\Controllers\Eligibility\CriteriaController;
 use App\Http\Controllers\Eligibility\EligibilityController;
 use App\Http\Controllers\Eligibility\SubCriteriaController;
@@ -41,6 +42,12 @@ Route::post('/eligibility/criterias/sub/{id}', [SubCriteriaController::class, 's
 Route::get('/eligibility/criteria/sub/{id}', [SubCriteriaController::class, 'show'])->name('eligibility.criterias.sub.show');
 Route::patch('/eligibility/criteria/sub/{id}', [SubCriteriaController::class, 'edit'])->name('eligibility.criterias.sub.update');
 Route::delete('/eligibility/criteria/sub/{id}', [SubCriteriaController::class, 'delete'])->name('eligibility.criterias.sub.delete');
+
+Route::get('/eligibility/alternatives', [AlternativeController::class, 'index'])->name('eligibility.alternatives');
+Route::post('/eligibility/alternatives', [AlternativeController::class, 'store'])->name('eligibility.alternatives.store');
+Route::get('/eligibility/alternative/show/{id}', [AlternativeController::class, 'show'])->name('eligibility.alternatives.show');
+Route::patch('/eligibility/alternative/edit/{id}', [AlternativeController::class, 'edit'])->name('eligibility.alternatives.update');
+Route::delete('/eligibility/alternative/delete/{id}', [AlternativeController::class, 'delete'])->name('eligibility.alternatives.delete');
 
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::post('/category', [CategoryController::class, 'store'])->name('categoryStore');
