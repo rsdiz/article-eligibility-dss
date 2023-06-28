@@ -260,16 +260,16 @@
 
                 $('#modal-edit button[name="submit"]').attr('data-id', $(this).data('id'));
 
-                var url_show = "{{ route('eligibility.alternatives.show', ':id') }}";
-                url_show = url_show.replace(':id', $(this).data('id'));
-                console.log("edit button get : " + url_show);
+                var url = "{{ route('eligibility.alternatives.show', ':id') }}";
+                url = url.replace(':id', $(this).data('id'));
+                console.log("edit button get : " + url);
 
                 modalEditName.attr("disabled", true);
                 @foreach ($criterias as $criteria)
                     modalEdit{{ $criteria->code }}.attr("disabled", true);
                 @endforeach
                 $.ajax({
-                    url: url_show,
+                    url: url,
                     method: "GET",
                     cache: false,
                     processData: false,
@@ -314,16 +314,14 @@
                 form.append('aksi', 'edit');
                 form.append('_method', 'PATCH');
 
-                var url_edit = "{{ route('eligibility.alternatives.update', ':id') }}";
-                console.log('before : ' + url_edit);
-                url_edit = url_edit.replace(':id', $(this).data('id'));
-                console.log('after  : ' + url_edit);
+                var url = "{{ route('eligibility.alternatives.update', ':id') }}";
+                url = url.replace(':id', $(this).data('id'));
 
                 var opt = {
                     type: 'category',
                     method: 'POST',
                     aksi: 'edit',
-                    url: url_edit,
+                    url: url,
                     table: table,
                     element: edit
                 };
