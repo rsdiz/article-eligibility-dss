@@ -55,6 +55,7 @@ class CalculateController extends Controller
 
             // Matrix Normalisasi (R)
             $matrix_r = array();
+            // Nilai S
             $value_s = array();
             foreach ($alternatives as $alternative) {
                 $total_r = 0;
@@ -67,7 +68,7 @@ class CalculateController extends Controller
                     $matrix_r[$criteria->id][$alternative->id] = round($r, 3);
                     $total_r += round($r, 3);
                 }
-                $value_s[$alternative->id] = $total_r;
+                $value_s[$alternative->id] = floatval($total_r);
             }
 
             // Nilai R
@@ -75,7 +76,7 @@ class CalculateController extends Controller
             foreach ($alternatives as $alternative) {
                 $max_value = @(max($matrix_r[$alternative->id]));
 
-                $value_r[$alternative->id] = $max_value;
+                $value_r[$alternative->id] = floatval($max_value);
             }
 
             // Nilai Qi
@@ -83,10 +84,10 @@ class CalculateController extends Controller
             foreach ($alternatives as $alternative) {
                 $current_s = $value_s[$alternative->id];
                 $current_r = $value_r[$alternative->id];
-                $max_s = max($value_s);
-                $min_s = min($value_s);
-                $max_r = max($value_r);
-                $min_r = min($value_r);
+                $max_s = floatval(max($value_s));
+                $min_s = floatval(min($value_s));
+                $max_r = floatval(max($value_r));
+                $min_r = floatval(min($value_r));
 
                 $v = 0.5;
                 $v1 = $current_s - $min_s;
