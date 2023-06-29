@@ -16,7 +16,7 @@ class CreateResultsTable extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('alternative_id');
-            $table->integer('value');
+            $table->double('value');
             $table->timestamps();
 
             $table->foreign('alternative_id')->references('id')->on('alternatives');
