@@ -7,7 +7,6 @@ use App\Models\Alternative;
 use App\Models\Criteria;
 use App\Models\Result;
 use Illuminate\Http\Request;
-use DataTables;
 use Illuminate\Support\Facades\DB;
 
 class CalculateController extends Controller
