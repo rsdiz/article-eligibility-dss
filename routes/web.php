@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Eligibility\AlternativeController;
+use App\Http\Controllers\Eligibility\CalculateController;
 use App\Http\Controllers\Eligibility\CriteriaController;
 use App\Http\Controllers\Eligibility\EligibilityController;
 use App\Http\Controllers\Eligibility\SubCriteriaController;
@@ -48,6 +49,8 @@ Route::post('/eligibility/alternatives', [AlternativeController::class, 'store']
 Route::get('/eligibility/alternative/show/{id}', [AlternativeController::class, 'show'])->name('eligibility.alternatives.show');
 Route::patch('/eligibility/alternative/edit/{id}', [AlternativeController::class, 'edit'])->name('eligibility.alternatives.update');
 Route::delete('/eligibility/alternative/delete/{id}', [AlternativeController::class, 'delete'])->name('eligibility.alternatives.delete');
+
+Route::get('/eligibility/calculate', [CalculateController::class, 'index'])->name('eligibility.calculate');
 
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::post('/category', [CategoryController::class, 'store'])->name('categoryStore');
