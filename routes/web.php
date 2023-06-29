@@ -10,6 +10,7 @@ use App\Http\Controllers\Eligibility\AlternativeController;
 use App\Http\Controllers\Eligibility\CalculateController;
 use App\Http\Controllers\Eligibility\CriteriaController;
 use App\Http\Controllers\Eligibility\EligibilityController;
+use App\Http\Controllers\Eligibility\ScoreController;
 use App\Http\Controllers\Eligibility\SubCriteriaController;
 use App\Http\Controllers\Saved\SavedController;
 
@@ -51,6 +52,8 @@ Route::patch('/eligibility/alternative/edit/{id}', [AlternativeController::class
 Route::delete('/eligibility/alternative/delete/{id}', [AlternativeController::class, 'delete'])->name('eligibility.alternatives.delete');
 
 Route::get('/eligibility/calculate', [CalculateController::class, 'index'])->name('eligibility.calculate');
+
+Route::get('/eligibility/results', [ScoreController::class, 'index'])->name('eligibility.results');
 
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::post('/category', [CategoryController::class, 'store'])->name('categoryStore');

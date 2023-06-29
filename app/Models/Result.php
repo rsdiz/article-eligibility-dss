@@ -18,4 +18,9 @@ class Result extends Model
     protected $fillable = [
         'alternative_id', 'value'
     ];
+
+    public function alternative()
+    {
+        return $this->belongsTo(Alternative::class);
+    }
 }
