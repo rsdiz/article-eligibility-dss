@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAlternativeRequest extends FormRequest
+class UpdateScoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class UpdateAlternativeRequest extends FormRequest
     public function rules()
     {
         return [
-            'post_id' => ['required']
+            'criteria' => ['required', 'array'],
+            'criteria.*' => ['nullable', 'numeric']
         ];
     }
 }

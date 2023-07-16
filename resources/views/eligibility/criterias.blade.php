@@ -16,9 +16,7 @@
                         <th>No</th>
                         <th>Kode Kriteria</th>
                         <th>Nama Kriteria</th>
-                        <th>Tipe</th>
                         <th>Bobot</th>
-                        <th>Cara Penilaian</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -165,16 +163,8 @@
                         name: 'name'
                     },
                     {
-                        data: 'type',
-                        name: 'type'
-                    },
-                    {
                         data: 'weight',
                         name: 'weight'
-                    },
-                    {
-                        data: 'option_desc',
-                        name: 'option_desc'
                     },
                     {
                         data: 'action',
@@ -185,7 +175,7 @@
                 ],
                 columnDefs: [{
                         "className": "text-center",
-                        "targets": [0, 1, 3, 4, 5, 6]
+                        "targets": [0, 1, 3, 4]
                     },
                     {
                         "width": "5%",
@@ -193,7 +183,7 @@
                     },
                     {
                         "width": "20%",
-                        "targets": 6
+                        "targets": 4
                     },
                 ]
             });

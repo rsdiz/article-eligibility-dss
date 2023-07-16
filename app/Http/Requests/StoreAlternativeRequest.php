@@ -24,7 +24,7 @@ class StoreAlternativeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string'],
+            'post_id' => ['required'],
             'criteria' => ['required', 'array'],
             'criteria.*' => ['nullable', 'numeric']
         ];

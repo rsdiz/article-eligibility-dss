@@ -16,7 +16,7 @@ class Alternative extends Model
     protected $guarded = ['id'];
 
     protected $fillable = [
-        'name'
+        'post_id'
     ];
 
     public function hasScores()
@@ -27,5 +27,10 @@ class Alternative extends Model
     public function scores()
     {
         return $this->hasMany(Score::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
     }
 }

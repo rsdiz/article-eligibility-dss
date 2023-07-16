@@ -47,7 +47,9 @@ Route::delete('/eligibility/criteria/sub/{id}', [SubCriteriaController::class, '
 
 Route::get('/eligibility/alternatives', [AlternativeController::class, 'index'])->name('eligibility.alternatives');
 Route::post('/eligibility/alternatives', [AlternativeController::class, 'store'])->name('eligibility.alternatives.store');
+Route::get('/eligibility/alternative/score/{id}', [AlternativeController::class, 'showAlternativeScore'])->name('eligibility.alternatives.score');
 Route::get('/eligibility/alternative/show/{id}', [AlternativeController::class, 'show'])->name('eligibility.alternatives.show');
+Route::patch('/eligibility/alternative/score/edit/{id}', [AlternativeController::class, 'editScores'])->name('eligibility.alternatives.score.update');
 Route::patch('/eligibility/alternative/edit/{id}', [AlternativeController::class, 'edit'])->name('eligibility.alternatives.update');
 Route::delete('/eligibility/alternative/delete/{id}', [AlternativeController::class, 'delete'])->name('eligibility.alternatives.delete');
 

@@ -45,8 +45,12 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Artikel</label>
-                            <input type="text" name="name" class="form-control" placeholder="Masukan artikel"
-                                autofocus autocomplete="off" required>
+                            <select name="post_id" class="form-control" required>
+                                <option value="-" disabled selected>-- Pilih --</option>
+                                @foreach ($posts as $post)
+                                    <option value="{{ $post->id }}">{{ $post->title }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="alert alert-info">
@@ -108,37 +112,13 @@
 
                         <div class="form-group">
                             <label class="font-weight-bold">Artikel</label>
-                            <input type="text" name="name" class="form-control" placeholder="Masukan artikel"
-                                autofocus autocomplete="off" required>
+                            <select name="post_id" class="form-control" required>
+                                <option value="-" disabled selected>-- Pilih --</option>
+                                @foreach ($posts as $post)
+                                    <option value="{{ $post->id }}">{{ $post->title }}</option>
+                                @endforeach
+                            </select>
                         </div>
-
-                        <div class="alert alert-info">
-                            Penilaian
-                        </div>
-
-                        @forelse ($criterias as $criteria)
-                            @if ($criteria->has_option)
-                                <div class="form-group">
-                                    <label class="font-weight-bold">({{ $criteria->code }}) {{ $criteria->name }}</label>
-                                    <select name="criteria[{{ $criteria->code }}]" class="form-control" required>
-                                        <option value="-" disabled selected>-- Pilih --</option>
-                                        @foreach ($criteria->subCriterias as $sub)
-                                            <option value="{{ $sub->value }}">{{ $sub->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @else
-                                <div class="form-group">
-                                    <label class="font-weight-bold">({{ $criteria->code }}) {{ $criteria->name }}</label>
-                                    <input autocomplete="off" type="number" name="criteria[{{ $criteria->code }}]" required
-                                        step="0.01" class="form-control" placeholder="Masukkan Penilaian">
-                                </div>
-                            @endif
-                        @empty
-                            <div class="alert alert-danger">
-                                Tidak ada kriteria!
-                            </div>
-                        @endforelse
                     </div>
                     <div class="modal-footer">
                         <button type="button" name="close-modal" class="btn btn-secondary"
@@ -166,8 +146,8 @@
                         searchable: false
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'post_title',
+                        name: 'title'
                     },
                     {
                         data: 'result_text',
@@ -198,7 +178,7 @@
             });
 
             $('#modal-add').on('shown.bs.modal', function() {
-                $('#modal-add input[name="name"]').trigger('focus');
+                $('#modal-add input[name="post_id"]').trigger('focus');
             });
             var add = $("#modal-add button[name='submit']");
             add.click(function(e) {
