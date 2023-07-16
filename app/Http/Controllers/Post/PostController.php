@@ -17,12 +17,15 @@ class PostController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            $data = Post::latest();
-            
+            $data = Post::with('category')->latest();
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('title', function($data) {
                     return '<a href="'. route('postShow', $data->id) .'">'. $data->title .'</a>';
+                })
+                ->addColumn('category_name', function($data) {
+                    return $data->category->name;
                 })
                 ->addColumn('thumbnail', function($data) {
                     $url = $data->thumbnail;
@@ -32,7 +35,7 @@ class PostController extends Controller
                     return '<a href="'. route('postEdit', $data->id) .'" class="btn btn-sm mr-2 btn-warning">Edit</a>' .
                         '<a href="#" class="btn btn-sm btn-danger mt-2 mt-lg-0 mb-2 mb-lg-0 delete" data-id="'. $data->id .'">Hapus</a>';
                 })
-                ->rawColumns(['title', 'thumbnail', 'action'])
+                ->rawColumns(['title', 'journalist', 'incident_date', 'category_name', 'thumbnail', 'action'])
                 ->make(true);
         }
 
@@ -68,16 +71,20 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
-            'description' => 'required|max:255',
+            'journalist' => 'required|max:255',
+            'incident_date' => 'required|date',
             'body' => 'required',
+            'category_id' => 'required',
             'thumbnail' => 'required|mimes:jpeg,jpg,bmp,png|max:4096',
         ]);
 
         $data = new Post();
         $data->title = $request->title;
-        $data->description = $request->description;
+        $data->journalist = $request->journalist;
+        $data->incident_date = $request->incident_date;
         $data->body = $request->body;
         $data->user_id = Auth::user()->id;
+        $data->category_id = $request->category_id;
 
         if($request->file('thumbnail') != null) {
             $thumbnail = $request->file('thumbnail');
@@ -88,8 +95,6 @@ class PostController extends Controller
         }
 
         $data->save();
-
-        $data->categories()->attach($request->categories);
 
         return redirect()->route('post')->with('success', 'Data berhasil ditambahkan');
     }
@@ -105,8 +110,10 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
-            'description' => 'required|max:255',
+            'journalist' => 'required|max:255',
+            'incident_date' => 'required|date',
             'body' => 'required',
+            'category_id' => 'required',
             'thumbnail' => 'nullable|mimes:jpeg,jpg,bmp,png|max:4096',
         ]);
 
@@ -114,9 +121,11 @@ class PostController extends Controller
         $thumbnailLama = $data->thumbnail;
 
         $data->title = $request->title;
-        $data->description = $request->description;
+        $data->journalist = $request->journalist;
+        $data->incident_date = $request->incident_date;
         $data->body = $request->body;
         $data->user_id = Auth::user()->id;
+        $data->category_id = $request->category_id;
 
         if($request->file('thumbnail') != null) {
             $thumbnail = $request->file('thumbnail');
@@ -130,8 +139,6 @@ class PostController extends Controller
 
         $data->save();
 
-        $data->categories()->sync($request->categories);
-
         return redirect()->route('post')->with('success', 'Data berhasil diedit');
     }
 
@@ -143,7 +150,7 @@ class PostController extends Controller
 
             return $this->res(200, 'Berhasil', $data);
         } catch (\Illuminate\Database\QueryException $ex) {
-            if($ex->getCode() === '23000') 
+            if($ex->getCode() === '23000')
                 return $this->errorFk();
         } catch (\Throwable $e) {
             return $this->res(500, 'Gagal', $e->getMessage());

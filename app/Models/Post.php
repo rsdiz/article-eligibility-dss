@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Post extends Model
 {
     protected $guarded = ['id'];
     public $timestamps = true;
 
-    public function categories()
+    public function category(): BelongsTo
     {
-        return $this->belongsToMany('App\Models\Category');
+        return $this->belongsTo('App\Models\Category');
     }
 }
