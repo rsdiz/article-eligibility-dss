@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <title>Kabarin</title>
+    <title>HarianJogja</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -61,8 +61,8 @@
 		</nav>
 
 		<div class="colorlib-footer">
-			<h1 id="colorlib-logo" class="mb-4"><a href="">Kabarin</a></h1>
-			<p class="pfooter">Copyright &copy;<script>document.write(new Date().getFullYear());</script> Kabarin</a></p>
+			<h1 id="colorlib-logo" class="mb-4"><a href="">HarianJogja</a></h1>
+			<p class="pfooter">Copyright &copy;<script>document.write(new Date().getFullYear());</script> HarianJogja</a></p>
 		</div>
 	</aside>
 	<div id="colorlib-main">
