@@ -66,6 +66,9 @@ Route::post('/eligibility/calculate/edit/{id}', [CalculateController::class, 'ed
 Route::delete('/eligibility/calculate/delete/{id}', [CalculateController::class, 'delete'])->name('eligibility.calculate.delete');
 
 Route::get('/eligibility/results', [ResultController::class, 'index'])->name('eligibility.results');
+Route::get('/eligibility/result/{id}', [ResultController::class, 'show'])->name('eligibility.result.show');
+Route::post('/eligibility/result/add-featured', [ResultController::class, 'addPostToFeatured'])->name('eligibility.result.featured.add');
+Route::post('/eligibility/result/remove-featured', [ResultController::class, 'removePostToFeatured'])->name('eligibility.result.featured.remove');
 
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::post('/category', [CategoryController::class, 'store'])->name('categoryStore');

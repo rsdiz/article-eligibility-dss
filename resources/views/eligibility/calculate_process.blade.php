@@ -94,7 +94,7 @@
 
         <div class="form-group d-flex align-items-center justify-content-center">
             <a href="{{ route('eligibility.calculate') }}" class="btn btn-primary py-2 px-5 mr-2">Kembali</a>
-            <a href="#" class="btn btn-primary py-2 px-5 ml-2">Lihat Hasil</a>
+            <a href="{{ route('eligibility.result.show', ['id' => request('id')]) }}" class="btn btn-primary py-2 px-5 ml-2">Lihat Hasil</a>
         </div>
     </div>
 @endsection
