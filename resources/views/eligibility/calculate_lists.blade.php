@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-    <a href="#" class="btn btn-primary mt-3 mr-3 ml-auto">Tambah</a>
+    <a href="{{ route('eligibility.calculate.add') }}" class="btn btn-primary mt-3 mr-3 ml-auto">Tambah</a>
     <div class="clearfix"></div>
 
     <div class="col-12 my-4">
