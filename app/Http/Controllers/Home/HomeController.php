@@ -15,8 +15,9 @@ class HomeController extends Controller
         $categories = Category::all();
         $posts = Post::latest()->paginate(5);
         $newPosts = Post::latest()->limit(3)->get();
+        $featuredPosts = Post::whereFeatured(true)->orderBy('created_at', 'desc')->limit(3)->get();
 
-        return view('home.home', compact('categories', 'posts', 'newPosts'));
+        return view('home.home', compact('categories', 'posts', 'newPosts', 'featuredPosts'));
     }
 
     public function search(Request $request)
@@ -40,7 +41,8 @@ class HomeController extends Controller
         }
 
         $newPosts = Post::latest()->limit(3)->get();
+        $featuredPosts = Post::whereFeatured(true)->orderBy('created_at', 'desc')->limit(3)->get();
 
-        return view('home.home', compact('categories', 'posts', 'newPosts'));
+        return view('home.home', compact('categories', 'posts', 'newPosts', 'featuredPosts'));
     }
 }

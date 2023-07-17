@@ -10,10 +10,7 @@
                 <div class="card flex-md-row mb-4 box-shadow h-md-250">
                     <div class="card-body d-flex flex-column align-items-start">
                         <h3 class="mb-0 text-dark">Kriteria</h3>
-                        <p class="card-text mb-auto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam quas,
-                            velit
-                            modi culpa quia, dolore sunt quos temporibus molestiae quae, esse quidem? Pariatur rem quidem
-                            debitis ducimus accusamus fugiat quasi!</p>
+                        <p class="card-text mb-auto">Kriteria adalah faktor atau atribut yang digunakan untuk mengevaluasi atau mengukur kinerja atau kualitas alternatif yang tersedia. Pemilihan kriteria yang tepat sangat penting dalam SPK karena akan mempengaruhi hasil akhir dari pengambilan keputusan.</p>
                         <a href="{{ route('eligibility.criterias') }}">Lihat</a>
                     </div>
                 </div>
@@ -22,10 +19,7 @@
                 <div class="card flex-md-row mb-4 box-shadow h-md-250">
                     <div class="card-body d-flex flex-column align-items-start">
                         <h3 class="mb-0 text-dark">Alternatif</h3>
-                        <p class="card-text mb-auto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-                            laudantium eveniet quod error minus aliquid harum fugit eius. Repellat dolor unde odio maxime
-                            omnis.
-                            Tempora ut illo quisquam voluptatem officiis.</p>
+                        <p class="card-text mb-auto">Alternatif adalah pilihan-pilihan atau opsi-opsi yang tersedia untuk dipilih atau dipertimbangkan dalam proses pengambilan keputusan. Pemilihan alternatif yang tepat harus didasarkan pada pemenuhan kriteria yang telah ditetapkan.</p>
                         <a href="{{ route('eligibility.alternatives') }}">Lihat</a>
                     </div>
                 </div>
@@ -36,10 +30,7 @@
                 <div class="card flex-md-row mb-4 box-shadow h-md-250">
                     <div class="card-body d-flex flex-column align-items-start">
                         <h3 class="mb-0 text-dark">Perhitungan</h3>
-                        <p class="card-text mb-auto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam quas,
-                            velit
-                            modi culpa quia, dolore sunt quos temporibus molestiae quae, esse quidem? Pariatur rem quidem
-                            debitis ducimus accusamus fugiat quasi!</p>
+                        <p class="card-text mb-auto">Pilih mana saja Alternatif yang ingin diproses pada Sistem Pendukung Keputusan menggunakan metode VIKOR.</p>
                         <a href="{{ route('eligibility.calculate') }}">Lihat</a>
                     </div>
                 </div>
@@ -48,10 +39,7 @@
                 <div class="card flex-md-row mb-4 box-shadow h-md-250">
                     <div class="card-body d-flex flex-column align-items-start">
                         <h3 class="mb-0 text-dark">Hasil Akhir</h3>
-                        <p class="card-text mb-auto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-                            laudantium eveniet quod error minus aliquid harum fugit eius. Repellat dolor unde odio maxime
-                            omnis.
-                            Tempora ut illo quisquam voluptatem officiis.</p>
+                        <p class="card-text mb-auto">Ranking dari alternatif yang sudah dihitung dapat dilihat disini. Pilih alternatif mana yang akan dijadikan artikel pilihan yang akan tampil pada menu berita pilihan!</p>
                         <a href="{{ route('eligibility.results') }}">Lihat</a>
                     </div>
                 </div>
