@@ -42,7 +42,7 @@
                                     @forelse ($alternatives as $alternative)
                                         <tr align="center">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td align="left">{{ $alternative->name }}</td>
+                                            <td align="left">{{ $alternative->post->title }}</td>
                                             @if ($result['type'] == 0)
                                                 @forelse ($criterias as $criteria)
                                                     <td>{{ $result['value'][$criteria->id][$alternative->id] }}</td>
@@ -91,5 +91,10 @@
         @empty
             Kosong
         @endforelse
+
+        <div class="form-group d-flex align-items-center justify-content-center">
+            <a href="{{ route('eligibility.calculate') }}" class="btn btn-primary py-2 px-5 mr-2">Kembali</a>
+            <a href="#" class="btn btn-primary py-2 px-5 ml-2">Lihat Hasil</a>
+        </div>
     </div>
 @endsection

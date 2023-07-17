@@ -3,25 +3,166 @@
 namespace App\Http\Controllers\Eligibility;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddPostToCalculateRequest;
+use App\Http\Requests\RemovePostToCalculateRequest;
+use App\Http\Requests\StoreCalculateRequest;
+use App\Http\Requests\UpdateCalculateRequest;
 use App\Models\Alternative;
+use App\Models\Calculation;
+use App\Models\Category;
 use App\Models\Criteria;
+use App\Models\Post;
 use App\Models\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use DataTables;
 
 class CalculateController extends Controller
 {
     public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $data = Calculation::query()->oldest();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    $link = '';
+
+                    $link .= '<a href="' . route('eligibility.calculate.process', ['id' => $data->id]) . '" class="btn btn-sm mr-2 btn-success">Proses</a>' .
+                        '<a href="' . route('eligibility.calculate.edit', ['id' => $data->id]) . '" class="btn btn-sm mr-2 btn-warning">Edit</a>' .
+                        '<a href="#" class="btn btn-sm btn-danger mt-2 mt-lg-0 mb-2 mb-lg-0 delete" data-id="' . $data->id . '">Hapus</a>';
+                    return $link;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('eligibility.calculate_lists');
+    }
+
+    public function show($id)
+    {
+        $data = Calculation::findOrFail($id);
+
+        return $this->res(200, 'Berhasil', $data);
+    }
+
+    public function createPage()
+    {
+        $categories = Category::all();
+
+        return view('eligibility.calculate_create', compact('categories'));
+    }
+
+    public function updatePage($id)
+    {
+        $categories = Category::all();
+        $data = Calculation::query()->find($id);
+
+        return view('eligibility.calculate_edit', compact('data', 'categories'));
+    }
+
+    public function store(StoreCalculateRequest $request)
+    {
+        try {
+            $data = Calculation::create($request->validated());
+
+            return redirect(route('eligibility.calculate'));
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('data', $e->getMessage());
+        }
+    }
+
+    public function edit($id, UpdateCalculateRequest $request)
+    {
+        try {
+            $data = Calculation::query()->updateOrCreate(
+                [
+                    'id' => $id
+                ],
+                $request->validated()
+            );
+
+            return redirect(route('eligibility.calculate'));
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('data', $e->getMessage());
+        }
+    }
+
+    public function processPage($id, Request $request)
+    {
+        $current = Calculation::query()->with(['posts'])->find($id);
+
+        if ($request->ajax()) {
+            $data = Post::query()->select('id', 'title', 'category_id')->with(['alternative'])->whereHas('alternative')->whereCategoryId($current->category_id)->get();
+            $posts = $current->posts->pluck('id')->toArray();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) use ($posts) {
+                    $link = '';
+
+                    if (in_array($data->id, $posts)) {
+                        $link .= '<a href="#" class="btn btn-sm btn-danger mt-2 mt-lg-0 mb-2 mb-lg-0 remove" data-id="' . $data->id . '">Hapus</a>';
+                    } else {
+                        $link .= '<a href="#" class="btn btn-sm mr-2 btn-success add" data-id="' . $data->id . '">Tambah</a>';
+                    }
+
+                    return $link;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('eligibility.calculate_article');
+    }
+
+    public function addPostToCalculate($id, AddPostToCalculateRequest $request)
+    {
+        $validated = $request->validated();
+
+        try {
+            $data = Calculation::findOrFail($id);
+            $post = Post::findOrFail($validated['post']);
+
+            $data->posts()->attach($post);
+
+            return $this->res(200, 'Berhasil', $data);
+        } catch (\Throwable $e) {
+            return $this->res(500, 'Gagal', $e->getMessage());
+        }
+    }
+
+    public function removePostToCalculate($id, RemovePostToCalculateRequest $request)
+    {
+        $validated = $request->validated();
+
+        try {
+            $data = Calculation::findOrFail($id);
+            $post = Post::findOrFail($validated['post']);
+
+            $data->posts()->detach($post);
+
+            return $this->res(200, 'Berhasil', $data);
+        } catch (\Throwable $e) {
+            return $this->res(500, 'Gagal', $e->getMessage());
+        }
+    }
+
+    public function process($id, Request $request)
+    {
         try {
             DB::beginTransaction();
 
-            Result::query()->truncate();
+            $calculation = Calculation::with(['posts', 'posts.alternative'])->findOrFail($id);
+
+            $calculation->results()->delete();
 
             // Matrix Keputusan (X)
             $matrix_x = array();
             $criterias = Criteria::query()->get();
-            $alternatives = Alternative::query()->with(['scores', 'scores.criteria'])->get(['id', 'name']);
+            $alternatives = Alternative::query()->with(['scores', 'scores.criteria', 'post'])->whereIn('post_id', $calculation->posts->pluck('id'))->get(['id', 'post_id']);
 
             foreach ($alternatives as $alternative) {
                 foreach ($alternative->scores as $score) {
@@ -42,7 +183,7 @@ class CalculateController extends Controller
                     $min_value = @(min($matrix_x[$score->criteria_id]));
 
                     try {
-                        $result = ($max_value-$current_value)/($max_value-$min_value);
+                        $result = ($max_value - $current_value) / ($max_value - $min_value);
                     } catch (\Throwable $th) {
                         $result = 0.0;
                     }
@@ -108,6 +249,8 @@ class CalculateController extends Controller
                     'alternative_id' => $alternative->id,
                     'value' => $value_q[$alternative->id]
                 ]);
+
+                $calculation->results()->attach($result);
             }
 
             DB::commit();
@@ -184,14 +327,32 @@ class CalculateController extends Controller
                 ]
             ];
 
-            return view('eligibility.calculate', compact(
+            return view('eligibility.calculate_process', compact(
                 'alternatives',
                 'criterias',
                 'data'
             ));
-        } catch (\Throwable $th) {
+        } catch (\PDOException $th) {
             DB::rollBack();
             throw $th;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $data = Calculation::findOrFail($id);
+
+            $data->delete();
+
+            return $this->res(200, 'Berhasil', $data);
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '23000')
+                return $this->errorFk();
+        } catch (\Throwable $e) {
+            return $this->res(500, 'Gagal', $e->getMessage());
         }
     }
 }

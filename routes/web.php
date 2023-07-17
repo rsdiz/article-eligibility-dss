@@ -54,6 +54,16 @@ Route::patch('/eligibility/alternative/edit/{id}', [AlternativeController::class
 Route::delete('/eligibility/alternative/delete/{id}', [AlternativeController::class, 'delete'])->name('eligibility.alternatives.delete');
 
 Route::get('/eligibility/calculate', [CalculateController::class, 'index'])->name('eligibility.calculate');
+Route::get('/eligibility/calculate/add', [CalculateController::class, 'createPage'])->name('eligibility.calculate.add');
+Route::post('/eligibility/calculate/add', [CalculateController::class, 'store'])->name('eligibility.calculate.store');
+Route::get('/eligibility/calculate/prepare/{id}', [CalculateController::class, 'processPage'])->name('eligibility.calculate.process');
+Route::post('/eligibility/calculate/add-article/{id}', [CalculateController::class, 'addPostToCalculate'])->name('eligibility.calculate.article.add');
+Route::post('/eligibility/calculate/remove-article/{id}', [CalculateController::class, 'removePostToCalculate'])->name('eligibility.calculate.article.remove');
+Route::get('/eligibility/calculate/process/{id}', [CalculateController::class, 'process'])->name('eligibility.calculate.process.it');
+Route::get('/eligibility/calculate/show/{id}', [CalculateController::class, 'show'])->name('eligibility.calculate.show');
+Route::get('/eligibility/calculate/edit/{id}', [CalculateController::class, 'updatePage'])->name('eligibility.calculate.edit');
+Route::post('/eligibility/calculate/edit/{id}', [CalculateController::class, 'edit'])->name('eligibility.calculate.update');
+Route::delete('/eligibility/calculate/delete/{id}', [CalculateController::class, 'delete'])->name('eligibility.calculate.delete');
 
 Route::get('/eligibility/results', [ResultController::class, 'index'])->name('eligibility.results');
 

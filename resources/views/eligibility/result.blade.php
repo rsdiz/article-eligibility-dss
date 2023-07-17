@@ -12,14 +12,14 @@
 					<table class="table table-bordered" width="100%" cellspacing="0">
 						<thead class="bg-primary text-white">
 							<tr align="center">
-								<th>Nama Alternatif</th>
+								<th>Alternatif</th>
 								<th>Nilai Qi</th>
 								<th width="15%">Rank</th>
 						</thead>
                         <tbody>
                             @foreach ($data as $result)
                                 <tr align="center">
-                                    <td align="left">{{ $result->alternative->name }}</td>
+                                    <td align="left">{{ $result->alternative->post->title }}</td>
                                     <td>{{ $result->value }}</td>
                                     <td>{{ $loop->iteration }}</td>
                                 </tr>
