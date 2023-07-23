@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row m-auto">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="mt-5">
             <h2 class="text-center">Kabarin | Login</h2>
             <form action="{{ route('loginPost') }}" method="POST" class="bg-light p-5 contact-form">
@@ -35,7 +35,7 @@
             </form>
         </div>
     </div>
-    <div class="col-md-6">
+    {{-- <div class="col-md-6">
         <div class="mt-5 mb-5">
             <h2 class="text-center">Kabarin | Register</h2>
             <form action="{{ route('registerPost') }}" method="POST" class="bg-light p-5 contact-form">
@@ -70,6 +70,6 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
 </div>
 @endsection
