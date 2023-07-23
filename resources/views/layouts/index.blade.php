@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png">
 	@stack('styles')
 	<style>
 		.swal2-top-end .swal2-title { color: white !important; }
@@ -61,7 +64,7 @@
 		</nav>
 
 		<div class="colorlib-footer">
-			<h1 id="colorlib-logo" class="mb-4"><a href="">HarianJogja</a></h1>
+			<h1 id="colorlib-logo" class="mb-4"><a href="{{ route('home') }}"><img src="{{ asset('images/logo-harjo.png') }}" alt="Logo Harian Jogja"></a></h1>
 			<p class="pfooter">Copyright &copy;<script>document.write(new Date().getFullYear());</script> HarianJogja</a></p>
 		</div>
 	</aside>
