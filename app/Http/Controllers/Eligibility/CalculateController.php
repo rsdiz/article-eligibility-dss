@@ -185,11 +185,11 @@ class CalculateController extends Controller
                     try {
                         $result = ($max_value - $current_value) / ($max_value - $min_value);
                     } catch (\Throwable $th) {
-                        $result = 0.0;
+                        $result = 1.0;
                     }
 
                     // save result to matrix normalisasi
-                    $value_x[$score->criteria_id][$alternative->id] = round($result, 3);
+                    $value_x[$score->criteria_id][$alternative->id] = floatval($result);
                 }
             }
 
@@ -205,7 +205,7 @@ class CalculateController extends Controller
 
                     $r = $current_value * $weight;
 
-                    $matrix_r[$criteria->id][$alternative->id] = round($r, 3);
+                    $matrix_r[$alternative->id][$criteria->id] = round($r, 3);
                     $total_r += round($r, 3);
                 }
                 $value_s[$alternative->id] = floatval($total_r);
@@ -235,8 +235,17 @@ class CalculateController extends Controller
                 $v3 = $current_r - $min_r;
                 $v4 = $max_r - $min_r;
 
-                $div1 = $v1 / $v2;
-                $div2 = $v3 / $v4;
+                try {
+                    $div1 = $v1 / $v2;
+                } catch (\Throwable $th) {
+                    $div1 = 1.0;
+                }
+
+                try {
+                    $div2 = $v3 / $v4;
+                } catch (\Throwable $th) {
+                    $div2 = 1.0;
+                }
 
                 $result1 = $div1 * $v;
                 $result2 = $div2 * (1 - $v);
@@ -259,12 +268,14 @@ class CalculateController extends Controller
                 [
                     'title' => "Matrix Keputusan (X)",
                     'type' => 0,
+                    'reverse' => false,
                     'show' => 'vertical',
                     'value' => $matrix_x
                 ],
                 [
                     'title' => 'Normalisasi Matrix (X)',
                     'type' => 0,
+                    'reverse' => false,
                     'show' => 'vertical',
                     'value' => $value_x
                 ],
@@ -278,6 +289,7 @@ class CalculateController extends Controller
                 [
                     'title' => 'Matrix Normalisasi (R)',
                     'type' => 0,
+                    'reverse' => true,
                     'show' => 'vertical',
                     'value' => $matrix_r
                 ],
@@ -299,20 +311,20 @@ class CalculateController extends Controller
                 ],
                 [
                     'header' => [
-                        'S<sup>+</sup>',
-                        'S<sup>-</sup>',
                         'R<sup>+</sup>',
-                        'R<sup>-</sup>'
+                        'R<sup>-</sup>',
+                        'S<sup>+</sup>',
+                        'S<sup>-</sup>'
                     ],
                     'title' => 'Nilai S dan R',
                     'hide_name' => true,
                     'type' => 0,
                     'show' => 'horizontal',
                     'value' => [
-                        floatval(max($value_s)),
-                        floatval(min($value_s)),
                         floatval(max($value_r)),
-                        floatval(min($value_r))
+                        floatval(min($value_r)),
+                        floatval(max($value_s)),
+                        floatval(min($value_s))
                     ]
                 ],
                 [

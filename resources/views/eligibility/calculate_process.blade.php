@@ -44,11 +44,19 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td align="left">{{ $alternative->post->title }}</td>
                                             @if ($result['type'] == 0)
-                                                @forelse ($criterias as $criteria)
-                                                    <td>{{ $result['value'][$criteria->id][$alternative->id] }}</td>
-                                                @empty
-                                                    <td>-</td>
-                                                @endforelse
+                                                @if ($result['reverse'])
+                                                    @forelse ($criterias as $criteria)
+                                                        <td>{{ $result['value'][$alternative->id][$criteria->id] }}</td>
+                                                    @empty
+                                                        <td>-</td>
+                                                    @endforelse
+                                                @else
+                                                    @forelse ($criterias as $criteria)
+                                                        <td>{{ $result['value'][$criteria->id][$alternative->id] }}</td>
+                                                    @empty
+                                                        <td>-</td>
+                                                    @endforelse
+                                                @endif
                                             @else
                                                 <td>{{ $result['value'][$alternative->id] }}</td>
                                             @endif
